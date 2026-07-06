@@ -122,3 +122,4 @@ journal-app/
 
 MIT
 # emotion-journal
+# emotion-journal
