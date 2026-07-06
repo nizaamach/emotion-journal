@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #6366F1;
+  --secondary: #8B5CF6;
+  --background: #F8FAFC;
+  --text: #1E293B;
+  --border: #E2E8F0;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Emotion color utilities */
+.emotion-joy { background-color: #FCD34D; }
+.emotion-sadness { background-color: #60A5FA; }
+.emotion-anger { background-color: #F87171; }
+.emotion-fear { background-color: #A78BFA; }
+.emotion-surprise { background-color: #FB923C; }
+.emotion-disgust { background-color: #4ADE80; }
+
+.text-emotion-joy { color: #FCD34D; }
+.text-emotion-sadness { color: #60A5FA; }
+.text-emotion-anger { color: #F87171; }
+.text-emotion-fear { color: #A78BFA; }
+.text-emotion-surprise { color: #FB923C; }
+.text-emotion-disgust { color: #4ADE80; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* Animations */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
