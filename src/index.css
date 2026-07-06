@@ -16,7 +16,8 @@
 }
 
 body {
-  @apply bg-[#FAF9F6] text-[#3D3D3D];
+  background-color: #FAF9F6;
+  color: #3D3D3D;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.6;
 }
@@ -42,33 +43,43 @@ h1, h2, h3 {
 .text-emotion-surprise { color: #C98B5B; }
 .text-emotion-disgust { color: #5BC98B; }
 
-/* Zen Card */
+/* Zen Card - Pure CSS */
 .zen-card {
-  @apply bg-white rounded-2xl shadow-sm border border-[#E8E6E1];
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E8E6E1;
 }
 
-/* Zen Button */
-.zen-btn {
-  @apply px-6 py-3 rounded-xl font-medium transition-all duration-200;
-}
-
+/* Zen Button Primary - Pure CSS */
 .zen-btn-primary {
-  @apply zen-btn bg-[#6B8E6B] text-white hover:bg-[#5A7A5A] active:scale-[0.98];
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1rem;
+  background-color: #6B8E6B;
+  color: white;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  font-size: 1.125rem;
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
 }
 
-.zen-btn-secondary {
-  @apply zen-btn bg-[#E8EDE5] text-[#3D3D3D] hover:bg-[#D8E0D5];
+.zen-btn-primary:hover {
+  background-color: #5A7A5A;
 }
 
-.zen-btn-ghost {
-  @apply zen-btn bg-transparent text-[#6B8E6B] hover:bg-[#E8EDE5];
+.zen-btn-primary:active {
+  transform: scale(0.98);
 }
 
-/* Zen Input */
-.zen-input {
-  @apply w-full p-4 bg-white border border-[#E8E6E1] rounded-xl 
-         focus:outline-none focus:ring-2 focus:ring-[#6B8E6B]/30 focus:border-[#6B8E6B]
-         transition-all duration-200;
+.zen-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Custom scrollbar */
