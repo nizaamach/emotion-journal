@@ -11,18 +11,18 @@ export default function Navbar() {
   }
 
   const navItems = [
-    { path: '/dashboard', icon: Home, label: 'Dashboard' },
-    { path: '/calendar', icon: Calendar, label: 'Calendar' },
     { path: '/journal', icon: BookOpen, label: 'New Entry' },
+    { path: '/dashboard', icon: Home, label: 'Home' },
+    { path: '/calendar', icon: Calendar, label: 'Calendar' },
   ]
 
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <nav className="sticky top-0 z-50 bg-[#FAF9F6]/80 backdrop-blur-md">
+      <div className="max-w-4xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          <Link to="/dashboard" className="flex items-center gap-2">
-            <span className="text-2xl">📝</span>
-            <span className="font-bold text-xl text-indigo-600">EmotionJournal</span>
+          <Link to="/journal" className="flex items-center gap-2">
+            <span className="text-2xl">🌿</span>
+            <span className="font-medium text-lg text-[#3D3D3D]">Journal</span>
           </Link>
 
           <div className="flex items-center gap-1">
@@ -30,23 +30,24 @@ export default function Navbar() {
               <Link
                 key={path}
                 to={path}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
                   location.pathname === path
-                    ? 'bg-indigo-100 text-indigo-700'
-                    : 'text-slate-600 hover:bg-slate-100'
+                    ? 'bg-[#6B8E6B] text-white'
+                    : 'text-[#6B6B6B] hover:bg-[#E8EDE5]'
                 }`}
               >
                 <Icon size={18} />
-                <span className="hidden sm:inline">{label}</span>
+                <span className="text-sm font-medium hidden sm:inline">{label}</span>
               </Link>
             ))}
 
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-600 hover:bg-red-50 hover:text-red-600 transition ml-2"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg text-[#6B6B6B] hover:bg-[#E8EDE5] transition-all duration-200 ml-2"
+              title="Logout"
             >
               <LogOut size={18} />
-              <span className="hidden sm:inline">Logout</span>
+              <span className="text-sm font-medium hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>

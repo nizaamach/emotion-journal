@@ -1,32 +1,75 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #6366F1;
-  --secondary: #8B5CF6;
-  --background: #F8FAFC;
-  --text: #1E293B;
-  --border: #E2E8F0;
+  --primary: #6B8E6B;
+  --secondary: #8B9A6B;
+  --background: #FAF9F6;
+  --surface: #FFFFFF;
+  --text: #3D3D3D;
+  --text-light: #6B6B6B;
+  --border: #E8E6E1;
+  --sage-light: #E8EDE5;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  @apply bg-slate-50 text-slate-800;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  @apply bg-[#FAF9F6] text-[#3D3D3D];
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
 }
 
-/* Emotion color utilities */
-.emotion-joy { background-color: #FCD34D; }
-.emotion-sadness { background-color: #60A5FA; }
-.emotion-anger { background-color: #F87171; }
-.emotion-fear { background-color: #A78BFA; }
-.emotion-surprise { background-color: #FB923C; }
-.emotion-disgust { background-color: #4ADE80; }
+/* Zen Typography */
+h1, h2, h3 {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
 
-.text-emotion-joy { color: #FCD34D; }
-.text-emotion-sadness { color: #60A5FA; }
-.text-emotion-anger { color: #F87171; }
-.text-emotion-fear { color: #A78BFA; }
-.text-emotion-surprise { color: #FB923C; }
-.text-emotion-disgust { color: #4ADE80; }
+/* Emotion colors - softer, natural */
+.emotion-joy { background-color: #F5D87E; }
+.emotion-sadness { background-color: #A8C5E2; }
+.emotion-anger { background-color: #E2A8A8; }
+.emotion-fear { background-color: #C5B8E2; }
+.emotion-surprise { background-color: #E2C5A8; }
+.emotion-disgust { background-color: #B8E2C5; }
+
+.text-emotion-joy { color: #C9A83A; }
+.text-emotion-sadness { color: #5B8DC9; }
+.text-emotion-anger { color: #C95B5B; }
+.text-emotion-fear { color: #8B5BC9; }
+.text-emotion-surprise { color: #C98B5B; }
+.text-emotion-disgust { color: #5BC98B; }
+
+/* Zen Card */
+.zen-card {
+  @apply bg-white rounded-2xl shadow-sm border border-[#E8E6E1];
+}
+
+/* Zen Button */
+.zen-btn {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-200;
+}
+
+.zen-btn-primary {
+  @apply zen-btn bg-[#6B8E6B] text-white hover:bg-[#5A7A5A] active:scale-[0.98];
+}
+
+.zen-btn-secondary {
+  @apply zen-btn bg-[#E8EDE5] text-[#3D3D3D] hover:bg-[#D8E0D5];
+}
+
+.zen-btn-ghost {
+  @apply zen-btn bg-transparent text-[#6B8E6B] hover:bg-[#E8EDE5];
+}
+
+/* Zen Input */
+.zen-input {
+  @apply w-full p-4 bg-white border border-[#E8E6E1] rounded-xl 
+         focus:outline-none focus:ring-2 focus:ring-[#6B8E6B]/30 focus:border-[#6B8E6B]
+         transition-all duration-200;
+}
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
@@ -34,24 +77,33 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f5f9;
+  background-color: #FAF9F6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #cbd5e1;
-  border-radius: 4px;
+  background-color: #D8E0D5;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #94a3b8;
+  background-color: #6B8E6B;
 }
 
 /* Animations */
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(-10px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.2s ease-out;
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

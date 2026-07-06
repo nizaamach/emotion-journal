@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Save, Loader2 } from 'lucide-react'
+import { Save, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import EmotionSelector from './EmotionSelector'
@@ -49,7 +49,10 @@ export default function JournalForm() {
 
       if (error) throw error
 
-      navigate('/dashboard')
+      // Reset form
+      setSelectedEmotions([])
+      setContent('')
+      alert('Journal berhasil disimpan!')
     } catch (error) {
       setError(error.message || 'Gagal menyimpan journal')
     } finally {
@@ -58,31 +61,19 @@ export default function JournalForm() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-        <div className="p-6 bg-gradient-to-r from-indigo-500 to-purple-500">
-          <h2 className="text-2xl font-bold text-white">New Journal Entry</h2>
-          <p className="text-indigo-100 mt-1">
-            {new Date().toLocaleDateString('id-ID', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+    <div className="animate-fade-in">
+      <div className="zen-card p-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
           {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600">
+            <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-600 text-center">
               {error}
             </div>
           )}
 
           {/* Emotion Selection */}
-          <div>
-            <label className="block text-sm font-medium text-slate-700 mb-3">
-              Apa emosi yang Anda rasakan? <span className="text-red-500">*</span>
+          <div className="text-center">
+            <label className="block text-sm text-[#6B6B6B] mb-4">
+              Apa emosi yang Anda rasakan?
             </label>
             <EmotionSelector
               selectedEmotions={selectedEmotions}
@@ -91,64 +82,71 @@ export default function JournalForm() {
           </div>
 
           {/* Toggle Info */}
-          <button
-            type="button"
-            onClick={() => setShowInfo(!showInfo)}
-            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-          >
-            {showInfo ? 'Sembunyikan informasi emosi' : 'Lihat informasi emosi'}
-          </button>
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => setShowInfo(!showInfo)}
+              className="inline-flex items-center gap-2 text-sm text-[#6B8E6B] hover:text-[#5A7A5A] font-medium transition"
+            >
+              {showInfo ? (
+                <>
+                  <ChevronUp size={16} />
+                  Sembunyikan informasi emosi
+                </>
+              ) : (
+                <>
+                  <ChevronDown size={16} />
+                  Lihat informasi emosi
+                </>
+              )}
+            </button>
+          </div>
 
           {/* Emotion Info Panel */}
-          {showInfo && (
-            <div className="animate-fade-in">
+          {showInfo && selectedEmotions.length > 0 && (
+            <div className="animate-fade-in bg-[#F5F7F2] rounded-xl p-6">
               <EmotionInfo selectedEmotions={selectedEmotions} />
             </div>
           )}
 
           {/* Journal Content */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Tulis Journal Anda <span className="text-red-500">*</span>
-            </label>
             <textarea
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="Tulis pikiran, perasaan, dan pengalaman Anda di sini... Tidak ada batasan untuk ekspresi Anda."
-              className="w-full min-h-[200px] p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-y"
+              placeholder="Tulis pikiran, perasaan, dan pengalaman Anda di sini..."
+              className="w-full min-h-[300px] p-6 border border-[#E8E6E1] rounded-xl 
+                         focus:ring-2 focus:ring-[#6B8E6B]/30 focus:border-[#6B8E6B]
+                         resize-none text-[#3D3D3D] placeholder:text-[#A0A0A0]
+                         transition-all duration-200 bg-[#FDFCFA]"
             />
-            <p className="mt-2 text-sm text-slate-500 text-right">
-              {content.length} karakter
-            </p>
+            <div className="mt-3 flex justify-between items-center text-sm text-[#6B6B6B]">
+              <span>{content.length} karakter</span>
+              {content.length > 0 && (
+                <span className="text-[#6B8E6B]">Sedang menulis...</span>
+              )}
+            </div>
           </div>
 
           {/* Submit Button */}
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={() => navigate('/dashboard')}
-              className="flex-1 py-3 border border-slate-200 rounded-xl text-slate-600 font-medium hover:bg-slate-50 transition"
-            >
-              Batal
-            </button>
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex-1 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition disabled:opacity-50 flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="animate-spin" size={20} />
-                  Menyimpan...
-                </>
-              ) : (
-                <>
-                  <Save size={20} />
-                  Simpan Journal
-                </>
-              )}
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={loading || selectedEmotions.length === 0 || content.trim().length < 10}
+            className="w-full py-4 zen-btn-primary flex items-center justify-center gap-3 text-lg
+                       disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? (
+              <>
+                <Loader2 className="animate-spin" size={20} />
+                Menyimpan...
+              </>
+            ) : (
+              <>
+                <Save size={20} />
+                Simpan Journal
+              </>
+            )}
+          </button>
         </form>
       </div>
     </div>

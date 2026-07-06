@@ -20,7 +20,7 @@ function PublicRoute({ children }) {
   const user = useAuth()
   
   if (user) {
-    return <Navigate to="/dashboard" replace />
+    return <Navigate to="/journal" replace />
   }
   
   return children
@@ -48,6 +48,14 @@ export default function App() {
             }
           />
           <Route
+            path="/journal"
+            element={
+              <ProtectedRoute>
+                <Journal />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/dashboard"
             element={
               <ProtectedRoute>
@@ -63,16 +71,8 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/journal"
-            element={
-              <ProtectedRoute>
-                <Journal />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/" element={<Navigate to="/journal" replace />} />
+          <Route path="*" element={<Navigate to="/journal" replace />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
