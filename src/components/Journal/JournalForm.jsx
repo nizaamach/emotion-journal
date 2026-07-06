@@ -44,7 +44,7 @@ export default function JournalForm() {
         user_id: user.id,
         emotions: selectedEmotions,
         content: content.trim(),
-        entry_date: new Date().toISOString().split('T')[0],
+        entry_date: new Date().toLocaleDateString('en-CA'),
       })
 
       if (error) throw error
